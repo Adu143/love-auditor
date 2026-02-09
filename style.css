@@ -61,8 +61,8 @@ h1, h2 {
 
 /* WHEEL */
 .wheel-wrapper {
-  position: relative;
-  width: 300px;
+  position: center;
+  width: 350px;
   margin: 30px auto;
   cursor: pointer;
 }
