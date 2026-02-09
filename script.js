@@ -52,8 +52,17 @@ const topics = {
       "What changed the most after we got married?",
       "What does “home” mean to you now?",
       "What is your favorite “us” moment that no one else knows?",
-      "What would you change if you time travel to our initial years of love?",
-      "What would you say to us 10 years from now?"
+      "What would you change if you time travel to our initial years of love?"
+    ]
+  }
+  us: {
+    title: "Future",
+    questions: [
+      "What is one materialistic thing you want me to buy this year",
+      "Which one country would you absolutely want to travel",
+      "What is one thing you are scared about in the next few years",
+      "What changes would you make to make our relationship better",
+      "What would you want me to change this year to make our relationship better"
     ]
   }
 };
