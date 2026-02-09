@@ -2,7 +2,6 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(#ffd6e8, #fff);
   text-align: center;
-  margin: 0;
   padding: 20px;
 }
 
@@ -18,34 +17,62 @@ h1, h2 {
   display: block;
 }
 
+.wheel-wrapper {
+  position: relative;
+  width: 300px;
+  margin: 20px auto;
+  cursor: pointer;
+}
+
+.spin-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ff4081;
+  color: white;
+  padding: 15px 22px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
 button {
   background: #ff4081;
   border: none;
   color: white;
   padding: 10px 18px;
-  margin: 8px;
+  margin: 10px;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 14px;
 }
 
 button:hover {
   background: #e91e63;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
+#questionBox {
   background: white;
-  margin: 8px auto;
-  padding: 10px;
-  border-radius: 12px;
+  padding: 20px;
+  border-radius: 15px;
   max-width: 500px;
+  margin: 20px auto;
 }
 
-.wheel-container {
-  margin: 20px auto;
+input {
+  width: 90%;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+#timer {
+  font-size: 18px;
+  color: #e91e63;
+  font-weight: bold;
+}
+
+.hint {
+  font-size: 12px;
+  color: #777;
 }
