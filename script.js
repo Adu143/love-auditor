@@ -118,7 +118,7 @@ function nextQuestion() {
     showQuestion();
   } else {
     console.log("All answers:", answers); // For testing, logs answers
-    ("Thank you for sharing your heart ❤️");
+    alert("Thank you for sharing your heart ❤️");
     showSummary();
     goHome();
   }
