@@ -1,5 +1,5 @@
 /* CONFIG */
-const TIME_PER_QUESTION = 60; // seconds (change freely)
+const TIME_PER_QUESTION = 180;
 
 /* DATA */
 const topics = {
@@ -63,42 +63,39 @@ const topics = {
 /* STATE */
 let currentTopic, currentIndex, timer, timeLeft;
 
-/* PAGE HANDLING */
-const pages = document.querySelectorAll('.page');
-
+/* NAV */
 function openPage(id) {
-  pages.forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
 function goHome() {
   clearInterval(timer);
-  openPage('home');
+  openPage("home");
 }
 
 /* QUESTIONS */
 function startTopic(key) {
   currentTopic = topics[key];
   currentIndex = 0;
-  document.getElementById('topicTitle').innerText = currentTopic.title;
-  openPage('questions');
+  document.getElementById("topicTitle").innerText = currentTopic.title;
+  openPage("questions");
   showQuestion();
 }
 
 function showQuestion() {
   clearInterval(timer);
   timeLeft = TIME_PER_QUESTION;
-  document.getElementById('timer').innerText = `⏳ ${timeLeft}`;
+  document.getElementById("timer").innerText = `⏳ ${timeLeft}`;
 
-  const q = currentTopic.questions[currentIndex];
-  document.getElementById('questionBox').innerHTML = `
-    <p>${q}</p>
-    <input type="text" placeholder="Your answer here 💕">
+  document.getElementById("questionBox").innerHTML = `
+    <p>${currentTopic.questions[currentIndex]}</p>
+    <input type="text" placeholder="Write your answer here ❤️">
   `;
 
   timer = setInterval(() => {
     timeLeft--;
-    document.getElementById('timer').innerText = `⏳ ${timeLeft}`;
+    document.getElementById("timer").innerText = `⏳ ${timeLeft}`;
     if (timeLeft <= 0) clearInterval(timer);
   }, 1000);
 }
@@ -108,51 +105,45 @@ function nextQuestion() {
     currentIndex++;
     showQuestion();
   } else {
-    alert("That was beautiful ❤️");
+    alert("Thank you for sharing your heart ❤️");
     goHome();
   }
 }
 
 /* WHEEL */
-const wheel = document.getElementById('wheel');
-const ctx = wheel.getContext('2d');
+const wheel = document.getElementById("wheel");
+const ctx = wheel.getContext("2d");
 const keys = Object.keys(topics);
-const colors = ['#ff80ab', '#f06292', '#ba68c8', '#64b5f6', '#81c784'];
+const colors = ["#f6c1cc", "#f9d5a7", "#cde7e3", "#d6e6b5", "#e7c6ff"];
 let angle = 0;
 
 function drawWheel() {
-  const slice = 2 * Math.PI / keys.length;
+  const slice = (2 * Math.PI) / keys.length;
   keys.forEach((k, i) => {
     ctx.beginPath();
     ctx.fillStyle = colors[i];
-    ctx.moveTo(150,150);
-    ctx.arc(150,150,150, angle + i*slice, angle + (i+1)*slice);
+    ctx.moveTo(150, 150);
+    ctx.arc(150, 150, 150, angle + i * slice, angle + (i + 1) * slice);
     ctx.fill();
-    ctx.save();
-    ctx.translate(150,150);
-    ctx.rotate(angle + (i + 0.5)*slice);
-    ctx.fillStyle = "#fff";
-    ctx.font = "14px Arial";
-    ctx.fillText(topics[k].title.split(" ")[0].toUpperCase(), 50, 5);
-    ctx.restore();
   });
 }
 
 function spinWheel() {
-  const spins = Math.random() * 3000 + 2000;
+  let spins = Math.random() * 3000 + 2000;
   let start = null;
 
   function animate(ts) {
     if (!start) start = ts;
-    const progress = ts - start;
     angle += 0.1;
-    ctx.clearRect(0,0,300,300);
+    ctx.clearRect(0, 0, 300, 300);
     drawWheel();
 
-    if (progress < spins) {
+    if (ts - start < spins) {
       requestAnimationFrame(animate);
     } else {
-      const index = Math.floor((keys.length - (angle / (2 * Math.PI) % keys.length)) % keys.length);
+      const index = Math.floor(
+        (keys.length - (angle / (2 * Math.PI)) % keys.length) % keys.length
+      );
       startTopic(keys[index]);
     }
   }
@@ -160,3 +151,4 @@ function spinWheel() {
 }
 
 drawWheel();
+
