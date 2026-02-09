@@ -10,13 +10,13 @@ body {
   position: fixed;
   inset: 0;
   background:
-    url("santorini.jpg"),
-    url("mallorca.jpg"),
-    url("dubai.jpg"),
-    url("maldives.jpg"),
-    url("interlaken.jpg"),
-    url("eiffel.jpg"),
-    url("plitvice.jpg");
+    url("/santorini.jpg"),
+    url("/mallorca.jpg"),
+    url("/dubai.jpg"),
+    url("/maldives.jpg"),
+    url("/interlaken.jpg"),
+    url("/eiffel.jpg"),
+    url("/plitvice.jpg");
   background-size: cover;
   background-position: center;
   filter: blur(8px);
