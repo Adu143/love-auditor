@@ -17,8 +17,8 @@ body {
   inset: 0;
   background:
     linear-gradient(
-      rgba(255,255,255,0.85),
-      rgba(255,255,255,0.85)
+      rgba(215,215,215,0.2),
+      rgba(215,215,215,0.2)
     ),
     url("images/santorini.jpg"),
     url("images/mallorca.jpg"),
