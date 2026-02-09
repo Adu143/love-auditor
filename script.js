@@ -105,11 +105,21 @@ function showQuestion() {
 }
 
 function nextQuestion() {
+  const input = document.querySelector("#questionBox input");
+  const answer = input ? input.value.trim() : "";
+
+  if (!answers[currentTopic.title]) {
+    answers[currentTopic.title] = [];
+  }
+  answers[currentTopic.title][currentIndex] = answer;
+
   if (currentIndex < currentTopic.questions.length - 1) {
     currentIndex++;
     showQuestion();
   } else {
-    alert("Thank you for sharing your heart ❤️");
+    console.log("All answers:", answers); // For testing, logs answers
+    ("Thank you for sharing your heart ❤️");
+    showSummary();
     goHome();
   }
 }
@@ -153,5 +163,18 @@ function spinWheel() {
   }
   requestAnimationFrame(animate);
 }
+
+function showSummary() {
+  let summaryHtml = "<h2>Your Answers ❤️</h2>";
+  for (let topic in answers) {
+    summaryHtml += `<h3>${topic}</h3><ul>`;
+    answers[topic].forEach((ans, i) => {
+      summaryHtml += `<li><strong>Q${i + 1}:</strong> ${ans}</li>`;
+    });
+    summaryHtml += "</ul>";
+  }
+  document.getElementById("questionBox").innerHTML = summaryHtml;
+}
+
 
 drawWheel();
