@@ -1,56 +1,67 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  color: #2c2c2c;
-  background: #111;
+/* RESET */
+* {
+  box-sizing: border-box;
 }
 
-/* COLLAGE BACKGROUND */
+/* BODY */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #f8f6f2;
+  color: #2c2c2c;
+}
+
+/* BACKGROUND COLLAGE */
 .bg-collage {
   position: fixed;
   inset: 0;
   background:
-    url("/santorini.jpg"),
-    url("/mallorca.jpg"),
-    url("/dubai.jpg"),
-    url("/maldives.jpg"),
-    url("/interlaken.jpg"),
-    url("/eiffel.jpg"),
-    url("/plitvice.jpg");
+    url("images/santorini.jpg"),
+    url("images/mallorca.jpg"),
+    url("images/dubai.jpg"),
+    url("images/maldives.jpg"),
+    url("images/interlaken.jpg"),
+    url("images/eiffel.jpg"),
+    url("images/plitvice.jpg");
   background-size: cover;
   background-position: center;
-  filter: blur(8px);
-  opacity: 0.35;
+  filter: blur(6px) brightness(1.1);
+  opacity: 0.55;
   z-index: -2;
 }
 
-/* DARK OVERLAY */
+/* LIGHT OVERLAY */
 .overlay {
   position: fixed;
   inset: 0;
-  background: linear-gradient(
-    rgba(15,15,15,0.75),
-    rgba(15,15,15,0.75)
-  );
+  background: rgba(255, 245, 235, 0.65);
   z-index: -1;
 }
 
-/* CONTENT */
+/* CONTENT WRAPPER */
 .content {
-  padding: 30px 20px;
   max-width: 900px;
   margin: auto;
+  padding: 30px 20px 50px;
+  text-align: center;
 }
 
-h1, h2 {
-  color: #f5e6d3;
-  letter-spacing: 1px;
+/* HEADINGS */
+h1 {
+  color: #5a2d2d;
+  margin-bottom: 8px;
 }
 
-p {
-  color: #ddd;
+h2 {
+  color: #5a2d2d;
+  margin-bottom: 10px;
 }
 
+.subtitle {
+  color: #555;
+}
+
+/* PAGE HANDLING */
 .page {
   display: none;
 }
@@ -72,28 +83,76 @@ p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(245,230,211,0.9);
-  color: #222;
+  background: #f1e2c6;
+  color: #2c2c2c;
   padding: 18px 22px;
   border-radius: 50%;
-  font-weight: bold;
+  font-weight: 700;
   letter-spacing: 1px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* TIMER */
+#timer {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 14px;
+  font-size: 16px;
+  color: #333;
+  background: rgba(255,255,255,0.95);
+  border-radius: 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 /* QUESTION CARD */
 #questionBox {
-  background: rgba(255,255,255,0.92);
+  background: rgba(255,255,255,0.95);
   padding: 25px;
   border-radius: 18px;
   max-width: 600px;
   margin: 25px auto;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
 }
 
 #questionBox p {
   font-size: 18px;
   color: #333;
+  margin-bottom: 15px;
 }
 
-/* INPUT */
-inpu
+/* INPUT FIELD */
+input {
+  width: 95%;
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 12px;
+  border: 1px solid #cbb89d;
+  outline: none;
+}
+
+/* BUTTONS */
+.actions {
+  margin-top: 15px;
+}
+
+button {
+  background: #cbb89d;
+  border: none;
+  color: #2c2c2c;
+  padding: 12px 22px;
+  margin: 8px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background: #e0cfb6;
+}
+
+/* SMALL TEXT */
+.hint {
+  font-size: 13px;
+  color: #666;
+}
