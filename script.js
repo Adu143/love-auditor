@@ -1,5 +1,30 @@
-const TIME_PER_QUESTION = 180;
+const TIME_PER_QUESTION = 60;
+let musicStarted = false;
 
+const bgMusic = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
+
+/* MUSIC */
+function startMusicOnce() {
+  if (!musicStarted) {
+    bgMusic.volume = 0.4;
+    bgMusic.play();
+    musicToggle.innerText = "🔊";
+    musicStarted = true;
+  }
+}
+
+function toggleMusic() {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    musicToggle.innerText = "🔊";
+  } else {
+    bgMusic.pause();
+    musicToggle.innerText = "🔈";
+  }
+}
+
+/* TOPICS */
 const topics = {
   love: {
     title: "Love at First Sight 💕",
@@ -52,23 +77,20 @@ const topics = {
       "What changed the most after we got married?",
       "What does “home” mean to you now?",
       "What is your favorite “us” moment that no one else knows?",
-      "What would you change if you time travel to our initial years of love?"
-    ]
-  },
-  future: {
-    title: "Future",
-    questions: [
-      "What is one materialistic thing you want me to buy this year",
-      "Which one country would you absolutely want to travel",
-      "What is one thing you are scared about in the next few years",
-      "What changes would you make to make our relationship better",
-      "What would you want me to change this year to make our relationship better"
+      "What would you change if you time travel to our initial years of love?",
+      "What would you say to us 10 years from now?"
     ]
   }
 };
 
-let currentTopic, currentIndex, timer, timeLeft;
+/* STATE */
+let currentTopicKey;
+let currentIndex;
+let timer;
+let timeLeft;
+let answers = [];
 
+/* NAV */
 function openPage(id) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   document.getElementById(id).classList.add("active");
@@ -79,10 +101,11 @@ function goHome() {
   openPage("home");
 }
 
+/* QUESTIONS */
 function startTopic(key) {
-  currentTopic = topics[key];
+  currentTopicKey = key;
   currentIndex = 0;
-  document.getElementById("topicTitle").innerText = currentTopic.title;
+  document.getElementById("topicTitle").innerText = topics[key].title;
   openPage("questions");
   showQuestion();
 }
@@ -93,8 +116,8 @@ function showQuestion() {
   document.getElementById("timer").innerText = `⏳ ${timeLeft}`;
 
   document.getElementById("questionBox").innerHTML = `
-    <p>${currentTopic.questions[currentIndex]}</p>
-    <input type="text" placeholder="Write your answer here ❤️">
+    <p>${topics[currentTopicKey].questions[currentIndex]}</p>
+    <input id="answerInput" type="text" placeholder="Write your answer here ❤️">
   `;
 
   timer = setInterval(() => {
@@ -105,32 +128,67 @@ function showQuestion() {
 }
 
 function nextQuestion() {
-  // 1. Grab current input
-  const input = document.querySelector("#questionBox input");
-  const answer = input ? input.value.trim() : "";
+  const input = document.getElementById("answerInput");
+  answers.push({
+    topic: topics[currentTopicKey].title,
+    question: topics[currentTopicKey].questions[currentIndex],
+    answer: input.value || "(No answer)"
+  });
 
-  // 2. Initialize array for this topic if needed
-  if (!answers[currentTopic.title]) {
-    answers[currentTopic.title] = [];
-  }
-
-  // 3. Store the answer at current index
-  answers[currentTopic.title][currentIndex] = answer;
-
-  // 4. Move to next question or show summary
-  if (currentIndex < currentTopic.questions.length - 1) {
+  if (currentIndex < topics[currentTopicKey].questions.length - 1) {
     currentIndex++;
     showQuestion();
   } else {
-    showSummary(); // instead of alert/goHome
+    showSummary();
   }
+}
+
+/* SUMMARY */
+function showSummary() {
+  clearInterval(timer);
+  openPage("summary");
+
+  const container = document.getElementById("summaryContent");
+  container.innerHTML = "";
+
+  const grouped = {};
+  answers.forEach(a => {
+    if (!grouped[a.topic]) grouped[a.topic] = [];
+    grouped[a.topic].push(a);
+  });
+
+  Object.keys(grouped).forEach(topic => {
+    const section = document.createElement("div");
+    section.className = "summary-topic";
+    section.innerHTML = `<h3>${topic}</h3>`;
+
+    grouped[topic].forEach(item => {
+      section.innerHTML += `
+        <div class="summary-item">
+          <div class="summary-q">${item.question}</div>
+          <div class="summary-a">❤️ ${item.answer}</div>
+        </div>
+      `;
+    });
+
+    container.appendChild(section);
+  });
+}
+
+function copySummary() {
+  let text = "Our Memories ❤️\n\n";
+  answers.forEach(a => {
+    text += `${a.topic}\nQ: ${a.question}\nA: ${a.answer}\n\n`;
+  });
+  navigator.clipboard.writeText(text);
+  alert("Copied with love ❤️");
 }
 
 /* WHEEL */
 const wheel = document.getElementById("wheel");
 const ctx = wheel.getContext("2d");
 const keys = Object.keys(topics);
-const colors = ["#f6c1cc", "#f9d5a7", "#cde7e3", "#d6e6b5", "#e7c6ff", "#b2db40"];
+const colors = ["#f6c1cc", "#f9d5a7", "#cde7e3", "#d6e6b5", "#e7c6ff"];
 let angle = 0;
 
 function drawWheel() {
@@ -145,6 +203,7 @@ function drawWheel() {
 }
 
 function spinWheel() {
+  startMusicOnce();
   let spins = Math.random() * 3000 + 2000;
   let start = null;
 
@@ -166,27 +225,5 @@ function spinWheel() {
   requestAnimationFrame(animate);
 }
 
-function showSummary() {
-  // Build HTML
-  let summaryHtml = "<h2>Your Answers ❤️</h2>";
-  
-  for (let topic in answers) {
-    summaryHtml += `<h3>${topic}</h3><ul>`;
-    answers[topic].forEach((ans, i) => {
-      summaryHtml += `<li><strong>Q${i + 1}:</strong> ${ans || "<i>No answer</i>"}</li>`;
-    });
-    summaryHtml += "</ul>";
-  }
-
-  // Render in the questionBox
-  document.getElementById("questionBox").innerHTML = summaryHtml;
-
-  // Stop any timers
-  clearInterval(timer);
-
-  // Update timer text
-  document.getElementById("timer").innerText = "";
-}
-
-
 drawWheel();
+
