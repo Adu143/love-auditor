@@ -2,81 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Adrash's Love ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Us, One Question at a Time 💕</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-  <!-- COLLAGE BACKGROUND -->
-  <div class="collage">
-    <div style="background-image:url('images/santorini.jpg')"></div>
-    <div style="background-image:url('images/mallorca.jpg')"></div>
-    <div style="background-image:url('images/dubai.jpg')"></div>
-    <div style="background-image:url('images/maldives.jpg')"></div>
-    <div style="background-image:url('images/interlaken.jpg')"></div>
-    <div style="background-image:url('images/eifel.jpg')"></div>
-    <div style="background-image:url('images/plitvice.jpg')"></div>
-    <div style="background-image:url('images/blackforest.jpg')"></div>
-    <div style="background-image:url('images/disneyland.jpg')"></div>
-    <div></div>
-    <div></div>
-  </div>
+  <!-- Background collage -->
+  <div class="background"></div>
 
-  <!-- LIGHT OVERLAY -->
-  <div class="overlay"></div>
-
-  <!-- MUSIC -->
+  <!-- Music -->
   <audio id="bgMusic" loop>
-    <source src="music/love-theme.mp3" type="audio/mpeg">
+    <source src="music/romantic.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- MUSIC TOGGLE -->
-  <div id="musicToggle" onclick="toggleMusic()">🔈</div>
+  <div class="container">
 
-  <!-- CONTENT -->
-  <div class="content">
+    <header>
+      <h1>Us, One Question at a Time 💖</h1>
+      <button id="musicToggle">🎵 Music</button>
+    </header>
 
-    <!-- HOME -->
-    <div id="home" class="page active">
-      <h1>Let's put our love to a Litmus test ❤️</h1>
-      <p class="subtitle">Spin the wheel and relive our memories</p>
+    <!-- Wheel Section -->
+    <section id="wheelSection">
+      <canvas id="wheel" width="320" height="320"></canvas>
+      <button id="spinBtn">🎡 Spin</button>
+    </section>
 
-      <div class="wheel-wrapper" onclick="spinWheel()">
-        <canvas id="wheel" width="300" height="300"></canvas>
-        <div class="spin-text">SPIN</div>
-      </div>
-
-      <p class="hint">Tap the center to choose a topic</p>
-    </div>
-
-    <!-- QUESTIONS -->
-    <div id="questions" class="page">
+    <!-- Question Section -->
+    <section id="questionSection" class="hidden">
       <h2 id="topicTitle"></h2>
-      <div id="timer">⏳ 60</div>
+      <p id="questionText"></p>
 
-      <div id="questionBox"></div>
+      <textarea id="answerInput" placeholder="Write your answer here..."></textarea>
 
-      <div class="actions">
-        <button onclick="nextQuestion()">Next ➡</button>
-        <button onclick="goHome()">⬅ Back</button>
+      <div class="timer">
+        ⏳ Time left: <span id="timeLeft">180</span>s
       </div>
-    </div>
 
-    <!-- SUMMARY -->
-    <div id="summary" class="page">
-      <h2>Our Memories ❤️</h2>
+      <button id="nextBtn">Next ➡️</button>
+    </section>
+
+    <!-- Summary Section -->
+    <section id="summarySection" class="hidden">
+      <h2>Our Little Love Book 💌</h2>
       <div id="summaryContent"></div>
-
-      <div class="actions">
-        <button onclick="copySummary()">📋 Copy</button>
-        <button onclick="goHome()">🏠 Home</button>
-      </div>
-    </div>
+      <button onclick="window.print()">🖨️ Print / Save</button>
+    </section>
 
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
