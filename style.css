@@ -20,13 +20,23 @@ body {
     url("images/dubai.jpg"),
     url("images/maldives.jpg"),
     url("images/interlaken.jpg"),
-    url("images/paris.jpg"),
-    url("images/plitvice.jpg");
+    url("images/eifel.jpg"),
+    url("images/plitvice.jpg"),
+    url("images/blackforest.jpg"),
+    url("images/disneyland.jpg");
   background-size: cover;
   background-position: center;
-  filter: brightness(1.15) saturate(1.1);
+  filter: brightness(0.85) saturate(1.15);
   animation: kenburns 40s ease-in-out infinite alternate;
 }
+
+.background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
 
 /* Ken Burns animation */
 @keyframes kenburns {
