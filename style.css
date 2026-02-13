@@ -1,207 +1,128 @@
-/* ============================= */
-/* RESET */
-/* ============================= */
-
 * {
   box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  color: #2c2c2c;
+  min-height: 100vh;
   overflow-x: hidden;
-  background: #000; /* fallback background */
 }
 
-/* ============================= */
-/* COLLAGE WITH KEN BURNS EFFECT */
-/* ============================= */
-
+/* ================= COLLAGE ================= */
 .collage {
   position: fixed;
   inset: 0;
+  z-index: -3;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  z-index: 0; /* FIXED: no negative z-index */
-  animation: slowZoom 80s ease-in-out infinite alternate;
+  animation: kenburns 50s ease-in-out infinite alternate;
 }
 
 .collage div {
   background-size: cover;
   background-position: center;
-  animation: pan 60s ease-in-out infinite alternate;
 }
 
-/* Background Images */
-.tile1 { background-image: url("images/santorini.jpg"); }
-.tile2 { background-image: url("images/mallorca.jpg"); }
-.tile3 { background-image: url("images/dubai.jpg"); }
-.tile4 { background-image: url("images/maldives.jpg"); }
-.tile5 { background-image: url("images/interlaken.jpg"); }
-.tile6 { background-image: url("images/eifel.jpg"); }
-.tile7 { background-image: url("images/plitvice.jpg"); }
-.tile8 { background-image: url("images/disneyland.jpg"); }
-.tile9 { background-image: url("images/blackforest.jpg"); }
-
-/* Slight animation variation */
-.collage div:nth-child(odd) {
-  animation-duration: 70s;
-}
-.collage div:nth-child(even) {
-  animation-duration: 90s;
+/* Ken Burns */
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
 }
 
-/* ============================= */
-/* OVERLAY */
-/* ============================= */
-
-.overlay {
+/* Mood overlay */
+body::before {
+  content: "";
   position: fixed;
   inset: 0;
-  background: rgba(255, 250, 242, 0.45); /* softer overlay */
-  z-index: 1; /* above collage */
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -2;
 }
 
-/* ============================= */
-/* CONTENT */
-/* ============================= */
+/* Vignette */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,0) 55%,
+    rgba(0,0,0,0.45) 100%
+  );
+}
 
-.content {
-  position: relative;   /* IMPORTANT */
-  z-index: 2;           /* above overlay */
-  max-width: 900px;
+/* ================= CONTENT ================= */
+.container {
+  max-width: 720px;
   margin: auto;
-  padding: 30px 20px 60px;
-  text-align: center;
+  padding: 20px;
 }
 
-/* HEADINGS */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 h1, h2 {
-  color: #5a2d2d;
+  color: #fff;
 }
 
-.subtitle {
-  color: #666;
-}
-
-/* PAGES */
-
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
-
-/* ============================= */
-/* WHEEL */
-/* ============================= */
-
-.wheel-wrapper {
-  position: relative;
-  width: 300px;
-  margin: 30px auto;
+button {
+  background: #d16c7b;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
   cursor: pointer;
 }
 
-.spin-text {
+#wheelSection {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.wheel-wrapper {
+  position: relative;
+  width: 320px;
+  margin: auto;
+}
+
+.spin-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #ffffff;
-  color: #5a2d2d;
-  padding: 18px 22px;
+  background: #fff;
+  color: #d16c7b;
+  font-weight: bold;
   border-radius: 50%;
-  font-weight: 700;
-  letter-spacing: 1px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  width: 80px;
+  height: 80px;
 }
 
-/* ============================= */
-/* TIMER */
-/* ============================= */
-
-#timer {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 6px 16px;
-  font-size: 16px;
-  color: #333;
-  background: #ffffff;
-  border-radius: 20px;
-  font-weight: 600;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+#questionSection, #summarySection {
+  background: rgba(255, 255, 255, 0.92);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
 }
 
-/* ============================= */
-/* QUESTION CARD */
-/* ============================= */
-
-#questionBox {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 18px;
-  max-width: 600px;
-  margin: 25px auto;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-}
-
-#questionBox p {
-  font-size: 18px;
-  margin-bottom: 15px;
-}
-
-input {
-  width: 95%;
+textarea {
+  width: 100%;
+  height: 120px;
   padding: 12px;
-  font-size: 15px;
-  border-radius: 12px;
-  border: 1px solid #d2c4aa;
+  border-radius: 10px;
 }
 
-/* ============================= */
-/* BUTTONS */
-/* ============================= */
-
-.actions {
-  margin-top: 15px;
+.timer {
+  margin: 12px 0;
+  font-weight: bold;
 }
 
-button {
-  background: #e6d3b1;
-  border: none;
-  color: #2c2c2c;
-  padding: 12px 22px;
-  margin: 8px;
-  border-radius: 25px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-button:hover {
-  background: #f1e2c6;
-}
-
-.hint {
-  font-size: 13px;
-  color: #777;
-}
-
-/* ============================= */
-/* KEN BURNS ANIMATIONS */
-/* ============================= */
-
-@keyframes slowZoom {
-  from { transform: scale(1); }
-  to { transform: scale(1.08); }
-}
-
-@keyframes pan {
-  from { background-position: 45% 45%; }
-  to { background-position: 55% 55%; }
+.hidden {
+  display: none;
 }
