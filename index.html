@@ -1,69 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Us, One Question at a Time 💕</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Background collage -->
-  <div class="collage">
-    <div style="background-image:url('images/santorini.jpg')"></div>
-    <div style="background-image:url('images/mallorca.jpg')"></div>
-    <div style="background-image:url('images/dubai.jpg')"></div>
-    <div style="background-image:url('images/maldives.jpg')"></div>
-    <div style="background-image:url('images/interlaken.jpg')"></div>
-    <div style="background-image:url('images/paris.jpg')"></div>
-    <div style="background-image:url('images/plitvice.jpg')"></div>
+<!-- Background -->
+<div class="bg">
+  <div style="background-image:url('images/santorini.jpg')"></div>
+  <div style="background-image:url('images/mallorca.jpg')"></div>
+  <div style="background-image:url('images/dubai.jpg')"></div>
+  <div style="background-image:url('images/maldives.jpg')"></div>
+  <div style="background-image:url('images/interlaken.jpg')"></div>
+  <div style="background-image:url('images/paris.jpg')"></div>
+  <div style="background-image:url('images/plitvice.jpg')"></div>
+</div>
+
+<audio id="music" loop>
+  <source src="music/romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div class="app">
+
+  <header>
+    <h1>Us, One Question at a Time 💖</h1>
+    <button id="musicBtn">🎵 Music</button>
+  </header>
+
+  <!-- WHEEL -->
+  <div id="wheelSection" class="wheel-wrap">
+    <canvas id="wheel" width="300" height="300"></canvas>
+    <button id="spin">SPIN</button>
   </div>
 
-  <!-- Music -->
-  <audio id="bgMusic" loop>
-    <source src="music/romantic.mp3" type="audio/mpeg">
-  </audio>
+  <!-- QUESTION BOX -->
+  <div id="questionBox" class="hidden">
+    <h2 id="topic"></h2>
+    <p id="question"></p>
 
-  <div class="container">
+    <textarea id="answerInput" placeholder="Write your answer…"></textarea>
 
-    <header>
-      <h1>Us, One Question at a Time 💖</h1>
-      <button id="musicToggle">🎵 Music</button>
-    </header>
-
-    <!-- Wheel -->
-    <section id="wheelSection">
-      <div class="wheel-wrapper">
-        <canvas id="wheel" width="320" height="320"></canvas>
-        <button id="spinBtn" class="spin-center">SPIN</button>
-      </div>
-    </section>
-
-    <!-- Question -->
-    <section id="questionSection" class="hidden">
-      <h2 id="topicTitle"></h2>
-      <p id="questionText"></p>
-
-      <textarea id="answerInput" placeholder="Write your answer here..."></textarea>
-
-      <div class="timer">
-        ⏳ Time left: <span id="timeLeft">180</span>s
-      </div>
-
-      <button id="nextBtn">Next ➡️</button>
-    </section>
-
-    <!-- Summary -->
-    <section id="summarySection" class="hidden">
-      <h2>Our Little Love Book 💌</h2>
-      <div id="summaryContent"></div>
-      <button onclick="window.print()">🖨️ Save / Print</button>
-    </section>
-
+    <button id="nextBtn">Next ➡️</button>
   </div>
 
-  <script src="script.js"></script>
+  <!-- SUMMARY -->
+  <div id="summaryPage" class="hidden">
+    <h2 id="summaryTitle"></h2>
+    <div id="summaryContent"></div>
+    <button id="spinAgain">🎡 Spin Again</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
-
-
-
