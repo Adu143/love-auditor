@@ -9,54 +9,46 @@ body {
   overflow-x: hidden;
 }
 
-/* ================= COLLAGE ================= */
-.collage {
+/* === BACKGROUND COLLAGE WITH KEN BURNS === */
+.background {
   position: fixed;
   inset: 0;
-  z-index: -3;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  animation: kenburns 50s ease-in-out infinite alternate;
-}
-
-.collage div {
+  z-index: -1;
+  background-image:
+    url("images/santorini.jpg"),
+    url("images/mallorca.jpg"),
+    url("images/dubai.jpg"),
+    url("images/maldives.jpg"),
+    url("images/interlaken.jpg"),
+    url("images/paris.jpg"),
+    url("images/plitvice.jpg");
   background-size: cover;
   background-position: center;
+  filter: brightness(1.15) saturate(1.1);
+  animation: kenburns 40s ease-in-out infinite alternate;
 }
 
-/* Ken Burns */
+/* Ken Burns animation */
 @keyframes kenburns {
-  from { transform: scale(1); }
-  to { transform: scale(1.1); }
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.15) translate(-2%, -2%);
+  }
 }
 
-/* Mood overlay */
-body::before {
+/* Light overlay for readability */
+.background::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: -2;
+  background: rgba(255, 255, 255, 0.65);
 }
 
-/* Vignette */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0,0,0,0) 55%,
-    rgba(0,0,0,0.45) 100%
-  );
-}
-
-/* ================= CONTENT ================= */
+/* === MAIN CONTENT === */
 .container {
-  max-width: 720px;
+  max-width: 700px;
   margin: auto;
   padding: 20px;
 }
@@ -68,7 +60,7 @@ header {
 }
 
 h1, h2 {
-  color: #fff;
+  color: #4a2c2a;
 }
 
 button {
@@ -78,6 +70,11 @@ button {
   padding: 10px 18px;
   border-radius: 25px;
   cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background: #b85a68;
 }
 
 #wheelSection {
@@ -85,27 +82,12 @@ button {
   margin-top: 20px;
 }
 
-.wheel-wrapper {
-  position: relative;
-  width: 320px;
-  margin: auto;
-}
-
-.spin-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  color: #d16c7b;
-  font-weight: bold;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
+canvas {
+  margin: 10px 0;
 }
 
 #questionSection, #summarySection {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 15px;
   margin-top: 20px;
@@ -114,15 +96,22 @@ button {
 textarea {
   width: 100%;
   height: 120px;
-  padding: 12px;
+  padding: 10px;
   border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
 }
 
 .timer {
-  margin: 12px 0;
+  margin: 10px 0;
   font-weight: bold;
+  color: #333;
 }
 
 .hidden {
   display: none;
+}
+
+#summaryContent p {
+  margin-bottom: 12px;
 }
