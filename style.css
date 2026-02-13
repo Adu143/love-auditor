@@ -1,127 +1,195 @@
+/* RESET */
 * {
   box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
 }
 
 body {
   margin: 0;
-  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  color: #2c2c2c;
   overflow-x: hidden;
 }
 
-/* === BACKGROUND COLLAGE WITH KEN BURNS === */
-.background {
+/* ============================= */
+/* COLLAGE WITH KEN BURNS EFFECT */
+/* ============================= */
+
+.collage {
   position: fixed;
   inset: 0;
-  z-index: -1;
-  background-image:
-    url("images/santorini.jpg"),
-    url("images/mallorca.jpg"),
-    url("images/dubai.jpg"),
-    url("images/maldives.jpg"),
-    url("images/interlaken.jpg"),
-    url("images/eifel.jpg"),
-    url("images/plitvice.jpg"),
-    url("images/blackforest.jpg"),
-    url("images/disneyland.jpg");
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  z-index: -2;
+  animation: slowZoom 80s ease-in-out infinite alternate;
+}
+
+.collage div {
   background-size: cover;
   background-position: center;
-  filter: brightness(0.85) saturate(1.15);
-  animation: kenburns 40s ease-in-out infinite alternate;
+  animation: pan 60s ease-in-out infinite alternate;
 }
 
-.background::after {
-  content: "";
-  position: absolute;
+/* Subtle variations so tiles don't move identically */
+.collage div:nth-child(odd) {
+  animation-duration: 70s;
+}
+.collage div:nth-child(even) {
+  animation-duration: 90s;
+}
+
+/* LIGHT OVERLAY (VERY IMPORTANT) */
+.overlay {
+  position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(255, 250, 242, 0.78);
+  z-index: -1;
 }
 
+/* ============================= */
+/* CONTENT */
+/* ============================= */
 
-/* Ken Burns animation */
-@keyframes kenburns {
-  0% {
-    transform: scale(1) translate(0, 0);
-  }
-  100% {
-    transform: scale(1.15) translate(-2%, -2%);
-  }
-}
-
-/* Light overlay for readability */
-.background::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.65);
-}
-
-/* === MAIN CONTENT === */
-.container {
-  max-width: 700px;
+.content {
+  max-width: 900px;
   margin: auto;
-  padding: 20px;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-h1, h2 {
-  color: #4a2c2a;
-}
-
-button {
-  background: #d16c7b;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-button:hover {
-  background: #b85a68;
-}
-
-#wheelSection {
+  padding: 30px 20px 60px;
   text-align: center;
-  margin-top: 20px;
 }
 
-canvas {
-  margin: 10px 0;
+/* HEADINGS */
+h1, h2 {
+  color: #5a2d2d;
 }
 
-#questionSection, #summarySection {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 20px;
-  border-radius: 15px;
-  margin-top: 20px;
+.subtitle {
+  color: #666;
 }
 
-textarea {
-  width: 100%;
-  height: 120px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-
-.timer {
-  margin: 10px 0;
-  font-weight: bold;
-  color: #333;
-}
-
-.hidden {
+/* PAGES */
+.page {
   display: none;
 }
 
-#summaryContent p {
-  margin-bottom: 12px;
+.page.active {
+  display: block;
+}
+
+/* ============================= */
+/* WHEEL */
+/* ============================= */
+
+.wheel-wrapper {
+  position: relative;
+  width: 300px;
+  margin: 30px auto;
+  cursor: pointer;
+}
+
+.spin-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  color: #5a2d2d;
+  padding: 18px 22px;
+  border-radius: 50%;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+/* ============================= */
+/* TIMER */
+/* ============================= */
+
+#timer {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 6px 16px;
+  font-size: 16px;
+  color: #333;
+  background: #ffffff;
+  border-radius: 20px;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+/* ============================= */
+/* QUESTION CARD */
+/* ============================= */
+
+#questionBox {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 18px;
+  max-width: 600px;
+  margin: 25px auto;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+
+#questionBox p {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+/* INPUT */
+input {
+  width: 95%;
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 12px;
+  border: 1px solid #d2c4aa;
+}
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.actions {
+  margin-top: 15px;
+}
+
+button {
+  background: #e6d3b1;
+  border: none;
+  color: #2c2c2c;
+  padding: 12px 22px;
+  margin: 8px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background: #f1e2c6;
+}
+
+/* SMALL TEXT */
+.hint {
+  font-size: 13px;
+  color: #777;
+}
+
+/* ============================= */
+/* KEN BURNS ANIMATIONS */
+/* ============================= */
+
+@keyframes slowZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes pan {
+  from {
+    background-position: 45% 45%;
+  }
+  to {
+    background-position: 55% 55%;
+  }
 }
