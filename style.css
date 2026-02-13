@@ -6,7 +6,7 @@ body {
   min-height: 100vh;
 }
 
-/* ===== BACKGROUND COLLAGE ===== */
+/* ===== BACKGROUND SLIDESHOW ===== */
 .bg {
   position: fixed;
   inset: 0;
@@ -39,7 +39,6 @@ body {
   100% { opacity: 0; }
 }
 
-/* Dark romantic overlay */
 body::before {
   content: "";
   position: fixed;
@@ -48,7 +47,6 @@ body::before {
   z-index: -2;
 }
 
-/* Vignette */
 body::after {
   content: "";
   position: fixed;
@@ -97,18 +95,29 @@ header {
   cursor: pointer;
 }
 
-/* ===== QUESTION ===== */
-#questionBox {
-  background: rgba(255,255,255,0.92);
+/* ===== QUESTION BOX ===== */
+#questionBox,
+#summaryPage {
+  background: rgba(255,255,255,0.95);
   color: #333;
   padding: 20px;
   border-radius: 16px;
+  margin-top: 20px;
 }
 
 textarea {
   width: 100%;
   height: 120px;
   margin-top: 10px;
+  padding: 10px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
 }
 
 .hidden { display: none; }
