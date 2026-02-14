@@ -58,7 +58,16 @@ const topics = {
   }
 };
 
-let currentTopic, currentIndex, timer, timeLeft;
+let currentTopicKey = null;
+let currentTopic = null;
+let currentIndex = 0;
+let timer = null;
+let timeLeft = 0;
+let answers = [];
+
+/* ========================= */
+/* PAGE CONTROL */
+/* ========================= */
 
 function openPage(id) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
@@ -67,13 +76,22 @@ function openPage(id) {
 
 function goHome() {
   clearInterval(timer);
+  answers = [];
   openPage("home");
 }
 
+/* ========================= */
+/* TOPIC FLOW */
+/* ========================= */
+
 function startTopic(key) {
+  currentTopicKey = key;
   currentTopic = topics[key];
   currentIndex = 0;
+  answers = [];
+
   document.getElementById("topicTitle").innerText = currentTopic.title;
+
   openPage("questions");
   showQuestion();
 }
@@ -81,11 +99,12 @@ function startTopic(key) {
 function showQuestion() {
   clearInterval(timer);
   timeLeft = TIME_PER_QUESTION;
+
   document.getElementById("timer").innerText = `⏳ ${timeLeft}`;
 
   document.getElementById("questionBox").innerHTML = `
     <p>${currentTopic.questions[currentIndex]}</p>
-    <input type="text" placeholder="Write your answer here ❤️">
+    <input id="answerInput" type="text" placeholder="Write your answer here ❤️">
   `;
 
   timer = setInterval(() => {
@@ -96,16 +115,46 @@ function showQuestion() {
 }
 
 function nextQuestion() {
+  const input = document.getElementById("answerInput");
+  const answer = input ? input.value.trim() : "";
+
+  answers[currentIndex] = answer;
+
   if (currentIndex < currentTopic.questions.length - 1) {
     currentIndex++;
     showQuestion();
   } else {
-    alert("Thank you for sharing your heart ❤️");
-    goHome();
+    showSummary();
   }
 }
 
+/* ========================= */
+/* SUMMARY */
+/* ========================= */
+
+function showSummary() {
+  clearInterval(timer);
+
+  const container = document.getElementById("summaryContent");
+  container.innerHTML = "";
+
+  currentTopic.questions.forEach((q, i) => {
+    const div = document.createElement("div");
+    div.style.marginBottom = "20px";
+    div.innerHTML = `
+      <strong>Q${i + 1}:</strong> ${q}<br>
+      <strong>Your Answer:</strong> ${answers[i] || "(No answer)"} 
+    `;
+    container.appendChild(div);
+  });
+
+  openPage("summary");
+}
+
+/* ========================= */
 /* WHEEL */
+/* ========================= */
+
 const wheel = document.getElementById("wheel");
 const ctx = wheel.getContext("2d");
 const keys = Object.keys(topics);
@@ -114,12 +163,28 @@ let angle = 0;
 
 function drawWheel() {
   const slice = (2 * Math.PI) / keys.length;
+
   keys.forEach((k, i) => {
     ctx.beginPath();
-    ctx.fillStyle = colors[i];
+    ctx.fillStyle = colors[i % colors.length];
     ctx.moveTo(150, 150);
-    ctx.arc(150, 150, 150, angle + i * slice, angle + (i + 1) * slice);
+    ctx.arc(
+      150,
+      150,
+      150,
+      angle + i * slice,
+      angle + (i + 1) * slice
+    );
     ctx.fill();
+
+    ctx.save();
+    ctx.translate(150, 150);
+    ctx.rotate(angle + i * slice + slice / 2);
+    ctx.fillStyle = "#333";
+    ctx.font = "14px sans-serif";
+    ctx.textAlign = "right";
+    ctx.fillText(k.toUpperCase(), 140, 5);
+    ctx.restore();
   });
 }
 
@@ -129,19 +194,24 @@ function spinWheel() {
 
   function animate(ts) {
     if (!start) start = ts;
+
     angle += 0.1;
+
     ctx.clearRect(0, 0, 300, 300);
     drawWheel();
 
     if (ts - start < spins) {
       requestAnimationFrame(animate);
     } else {
-      const index = Math.floor(
-        (keys.length - (angle / (2 * Math.PI)) % keys.length) % keys.length
-      );
+      const normalized =
+        (keys.length - (angle / (2 * Math.PI)) % keys.length) %
+        keys.length;
+
+      const index = Math.floor(normalized);
       startTopic(keys[index]);
     }
   }
+
   requestAnimationFrame(animate);
 }
 
