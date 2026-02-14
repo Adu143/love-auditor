@@ -9,7 +9,7 @@
 
 <body>
 
-  <!-- COLLAGE BACKGROUND -->
+  <!-- COLLAGE -->
   <div class="collage">
     <div class="tile1"></div>
     <div class="tile2"></div>
@@ -22,10 +22,8 @@
     <div class="tile9"></div>
   </div>
 
-  <!-- LIGHT OVERLAY -->
   <div class="overlay"></div>
 
-  <!-- CONTENT -->
   <div class="content">
 
     <!-- HOME -->
@@ -33,19 +31,16 @@
       <h1>For You, My Love ❤️</h1>
       <p class="subtitle">Spin the wheel and relive our memories</p>
 
-      <div class="wheel-wrapper" onclick="spinWheel()">
+      <div class="wheel-wrapper">
         <canvas id="wheel" width="300" height="300"></canvas>
-        <div class="spin-text">SPIN</div>
+        <button class="spin-btn" onclick="spinWheel()">SPIN</button>
       </div>
-
-      <p class="hint">Tap the center to choose a topic</p>
     </div>
 
     <!-- QUESTIONS -->
     <div id="questions" class="page">
       <h2 id="topicTitle"></h2>
       <div id="timer">⏳ 60</div>
-
       <div id="questionBox"></div>
 
       <div class="actions">
@@ -59,9 +54,9 @@
       <h2>Our Beautiful Conversation ❤️</h2>
       <div id="summaryContent"></div>
       <div class="actions">
-      <button onclick="goHome()">⬅ Back Home</button>
+        <button onclick="goHome()">⬅ Back Home</button>
+      </div>
     </div>
-</div>
 
   </div>
 
